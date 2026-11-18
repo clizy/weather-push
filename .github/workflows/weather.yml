@@ -1,0 +1,27 @@
+name: 每日天气推送
+
+on:
+  schedule:
+    # UTC 00:00 = 北京时间 08:00（GitHub 定时可能有 5~15 分钟延迟）
+    - cron: "0 0 * * *"
+  workflow_dispatch: # 支持在页面上手动触发，方便验证
+
+jobs:
+  push:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: 推送天气到微信
+        env:
+          QWEATHER_KEY: ${{ secrets.QWEATHER_KEY }}
+          QWEATHER_HOST: ${{ secrets.QWEATHER_HOST }}
+          WECHAT_APPID: ${{ secrets.WECHAT_APPID }}
+          WECHAT_APPSECRET: ${{ secrets.WECHAT_APPSECRET }}
+          WECHAT_OPENID: ${{ secrets.WECHAT_OPENID }}
+          WECHAT_TEMPLATE_ID: ${{ secrets.WECHAT_TEMPLATE_ID }}
+        run: python weather_push.py

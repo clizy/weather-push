@@ -1,0 +1,15 @@
+{
+  "latitude": 30.25,
+  "longitude": 120.17,
+  "display_name": "杭州",
+  "qweather": {
+    "api_host": "mx3dnbmbje.re.qweatherapi.com",
+    "key": ""
+  },
+  "wechat_mp": {
+    "appid": "",
+    "appsecret": "",
+    "openid": "",
+    "template_id": ""
+  }
+}

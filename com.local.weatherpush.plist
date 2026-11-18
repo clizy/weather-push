@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.local.weatherpush</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/usr/local/bin/python3</string>
+        <string>/Users/apple/Documents/Trae-CN/temp_20261117_01/weather-push/weather_push.py</string>
+    </array>
+
+    <!-- 每天 08:00 执行，改时间只改 Hour / Minute -->
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Hour</key>
+        <integer>8</integer>
+        <key>Minute</key>
+        <integer>0</integer>
+    </dict>
+
+    <key>WorkingDirectory</key>
+    <string>/Users/apple/Documents/Trae-CN/temp_20261117_01/weather-push</string>
+
+    <key>StandardOutPath</key>
+    <string>/Users/apple/Documents/Trae-CN/temp_20261117_01/weather-push/logs/launchd.out.log</string>
+
+    <key>StandardErrorPath</key>
+    <string>/Users/apple/Documents/Trae-CN/temp_20261117_01/weather-push/logs/launchd.err.log</string>
+
+    <key>RunAtLoad</key>
+    <false/>
+</dict>
+</plist>
