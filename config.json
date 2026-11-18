@@ -1,7 +1,7 @@
 {
-  "latitude": 30.25,
-  "longitude": 120.17,
-  "display_name": "杭州",
+  "latitude": 28.54,
+  "longitude": 115.94,
+  "display_name": "南昌县",
   "qweather": {
     "api_host": "mx3dnbmbje.re.qweatherapi.com",
     "key": ""
