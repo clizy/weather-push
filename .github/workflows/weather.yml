@@ -1,11 +1,9 @@
 name: 每日天气推送
 
 on:
-  schedule:
-    # 北京时间 08:00~22:00 每小时一次 = UTC 00:00~14:00
-    # GitHub 定时可能有 5~15 分钟延迟
-    - cron: "0 23,0-14 * * *"
-  workflow_dispatch: # 支持在页面上手动触发，方便验证
+  # 定时由 cron-job.org 每小时调用本 workflow 的 dispatch 接口触发
+  # GitHub 自带 schedule 不走时，已移除
+  workflow_dispatch:
 
 jobs:
   push:
