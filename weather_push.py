@@ -219,26 +219,32 @@ def push_to_wechat(wechat_config, fields):
 
 def main():
     dry_run = "--dry-run" in sys.argv
-    try:
-        config = load_config()
-        latitude = config.get("latitude")
-        longitude = config.get("longitude")
-        if latitude is None or longitude is None:
-            raise RuntimeError("没有配置经纬度（config.json 的 latitude / longitude）")
+    config = load_config()
+    locations = config.get("locations") or []
+    if not locations:
+        log("执行失败：config.json 里没有配置 locations")
+        sys.exit(1)
 
-        city_name = config.get("display_name") or f"{latitude},{longitude}"
-        daily = fetch_weather(latitude, longitude, config.get("qweather", {}))
-        summary, fields = build_weather(city_name, daily)
-        log(f"天气：{summary}")
+    qweather_config = config.get("qweather", {})
+    failed = 0
+    for location in locations:
+        city_name = location.get("display_name") or f"{location.get('latitude')},{location.get('longitude')}"
+        try:
+            daily = fetch_weather(location["latitude"], location["longitude"], qweather_config)
+            summary, fields = build_weather(city_name, daily)
+            log(f"天气：{summary}")
 
-        if dry_run:
-            log(f"dry-run 模式，跳过推送。字段：{json.dumps(fields, ensure_ascii=False)}")
-            return
+            if dry_run:
+                log(f"dry-run 模式，跳过推送。字段：{json.dumps(fields, ensure_ascii=False)}")
+                continue
 
-        push_to_wechat(config.get("wechat_mp", {}), fields)
-        log("推送成功")
-    except Exception as error:  # 定时任务没有终端，失败必须落日志
-        log(f"执行失败：{error}")
+            push_to_wechat(config.get("wechat_mp", {}), fields)
+            log(f"{city_name} 推送成功")
+        except Exception as error:  # 单个城市失败不影响其他城市
+            log(f"{city_name} 执行失败：{error}")
+            failed += 1
+
+    if failed:
         sys.exit(1)
 
 

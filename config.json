@@ -1,7 +1,16 @@
 {
-  "latitude": 28.54,
-  "longitude": 115.94,
-  "display_name": "南昌县",
+  "locations": [
+    {
+      "latitude": 28.54,
+      "longitude": 115.94,
+      "display_name": "南昌县"
+    },
+    {
+      "latitude": 31.22,
+      "longitude": 121.54,
+      "display_name": "上海浦东"
+    }
+  ],
   "qweather": {
     "api_host": "mx3dnbmbje.re.qweatherapi.com",
     "key": ""
